@@ -3,7 +3,8 @@ package karrotpay.assignment.igloomall.persistence.coupon
 import com.querydsl.jpa.impl.JPAQueryFactory
 import karrotpay.assignment.igloomall.domain.coupon.model.Coupon
 import karrotpay.assignment.igloomall.domain.coupon.model.CouponHistory
-import karrotpay.assignment.igloomall.domain.coupon.spi.CouponPort
+import karrotpay.assignment.igloomall.domain.coupon.spi.CommandCouponPort
+import karrotpay.assignment.igloomall.domain.coupon.spi.QueryCouponPort
 import karrotpay.assignment.igloomall.domain.coupon.spi.vo.CouponVO
 import karrotpay.assignment.igloomall.global.annotation.PersistenceAdapter
 import karrotpay.assignment.igloomall.persistence.coupon.mapper.CouponHistoryMapper
@@ -22,7 +23,7 @@ class CouponPersistenceAdapter(
     private val couponRepository: CouponJpaRepository,
     private val couponHistoryRepository: CouponHistoryJpaRepository,
     private val queryFactory: JPAQueryFactory
-) : CouponPort {
+) : QueryCouponPort, CommandCouponPort {
     override fun isAlreadyGotCoupon(
         couponCode: String,
         userId: Long
