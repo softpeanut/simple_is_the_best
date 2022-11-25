@@ -6,9 +6,15 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.Index
 import javax.persistence.Table
 
-@Table(name = "tbl_coupon")
+@Table(
+    name = "tbl_coupon",
+    indexes = [
+        Index(name = "code_unique_index", columnList = "code", unique = true)
+    ]
+)
 @Entity
 class CouponJpaEntity(
 
@@ -19,8 +25,7 @@ class CouponJpaEntity(
     @Column(
         name = "code",
         columnDefinition = ColumnType.CHAR + "(5)",
-        nullable = false,
-        unique = true
+        nullable = false
     )
     val code: String,
 
@@ -51,6 +56,5 @@ class CouponJpaEntity(
         nullable = false
     )
     val issuedQuantity: Long
-
 
 )

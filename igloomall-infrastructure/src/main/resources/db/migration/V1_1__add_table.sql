@@ -7,10 +7,10 @@ CREATE TABLE IF NOT EXISTS tbl_coupon
     code            CHAR(5)     NOT NULL,
     name            VARCHAR(10) NOT NULL,
     total_quantity  BIGINT      NOT NULL,
-    issued_quantity BIGINT      NOT NULL,
-    CONSTRAINT code_unique
-        UNIQUE (code)
+    issued_quantity BIGINT      NOT NULL
 );
+
+CREATE UNIQUE INDEX code_unique_index ON tbl_coupon (code);
 
 -- create user table
 CREATE TABLE IF NOT EXISTS tbl_user
