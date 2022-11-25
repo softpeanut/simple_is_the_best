@@ -2,13 +2,12 @@ package karrotpay.assignment.igloomall.persistence.coupon.mapper
 
 import karrotpay.assignment.igloomall.domain.coupon.model.Coupon
 import karrotpay.assignment.igloomall.global.annotation.Mapper
-import karrotpay.assignment.igloomall.persistence.GenericMapper
 import karrotpay.assignment.igloomall.persistence.coupon.model.CouponJpaEntity
 
 @Mapper
-class CouponMapper : GenericMapper<CouponJpaEntity, Coupon> {
+class CouponMapper {
 
-    override fun toDomain(entity: CouponJpaEntity?): Coupon? {
+    fun toDomain(entity: CouponJpaEntity?): Coupon? {
         return entity?.run {
             Coupon(
                 id = id,
@@ -21,7 +20,7 @@ class CouponMapper : GenericMapper<CouponJpaEntity, Coupon> {
         }
     }
 
-    override fun toEntity(domain: Coupon): CouponJpaEntity {
+    fun toEntity(domain: Coupon): CouponJpaEntity {
         return domain.run {
             CouponJpaEntity(
                 id = id,
