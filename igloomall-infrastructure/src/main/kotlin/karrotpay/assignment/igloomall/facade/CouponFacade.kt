@@ -1,0 +1,66 @@
+package karrotpay.assignment.igloomall.facade
+
+import karrotpay.assignment.igloomall.domain.coupon.dto.FindAllCouponsResponse
+import karrotpay.assignment.igloomall.domain.coupon.dto.FindCouponHistoriesResponse
+import karrotpay.assignment.igloomall.domain.coupon.dto.FindUserRetainedCouponsResponse
+import karrotpay.assignment.igloomall.domain.coupon.dto.IssueCouponResponse
+import karrotpay.assignment.igloomall.domain.coupon.dto.UseCouponResponse
+import karrotpay.assignment.igloomall.domain.coupon.usecase.FindAllCoupons
+import karrotpay.assignment.igloomall.domain.coupon.usecase.FindCouponHistories
+import karrotpay.assignment.igloomall.domain.coupon.usecase.FindUserRetainedCoupons
+import karrotpay.assignment.igloomall.domain.coupon.usecase.IssueCoupon
+import karrotpay.assignment.igloomall.domain.coupon.usecase.UseCoupon
+import karrotpay.assignment.igloomall.domain.user.usecase.CheckUserExists
+import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Isolation
+import org.springframework.transaction.annotation.Transactional
+
+@Component
+class CouponFacade(
+    private val issueCoupon: IssueCoupon,
+    private val checkUserExists: CheckUserExists,
+    private val useCoupon: UseCoupon,
+    private val findUserRetainedCoupons: FindUserRetainedCoupons,
+    private val findCouponHistories: FindCouponHistories,
+    private val findAllCoupons: FindAllCoupons
+) {
+
+    @Transactional(
+        readOnly = true,
+        isolation = Isolation.READ_COMMITTED,
+        rollbackFor = [Exception::class]
+    )
+    fun findAllCoupons(): FindAllCouponsResponse {
+        return findAllCoupons.execute()
+    }
+
+    @Transactional(
+        readOnly = true,
+        isolation = Isolation.READ_COMMITTED,
+        rollbackFor = [Exception::class]
+    )
+    fun findCouponHistories(couponId: Long): FindCouponHistoriesResponse {
+        return findCouponHistories.execute(couponId)
+    }
+
+    @Transactional(
+        readOnly = true,
+        isolation = Isolation.READ_COMMITTED,
+        rollbackFor = [Exception::class]
+    )
+    fun findUserRetainedCoupons(userId: Long): FindUserRetainedCouponsResponse {
+        return findUserRetainedCoupons.execute(userId)
+    }
+
+    @Transactional(rollbackFor = [Exception::class])
+    fun issueCoupon(userId: Long, couponCode: String): IssueCouponResponse {
+        checkUserExists.execute(userId)
+
+        return issueCoupon.execute(userId, couponCode)
+    }
+
+    @Transactional(rollbackFor = [Exception::class])
+    fun useCoupon(userId: Long, couponId: Long): UseCouponResponse {
+        return useCoupon.execute(userId, couponId)
+    }
+}

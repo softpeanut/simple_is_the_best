@@ -1,11 +1,11 @@
 package karrotpay.assignment.igloomall.domain.coupon.usecase
 
-import karrotpay.assignment.igloomall.common.annotation.ReadOnlyUseCase
+import karrotpay.assignment.igloomall.common.annotation.UseCase
 import karrotpay.assignment.igloomall.domain.coupon.dto.FindCouponHistoriesElement
 import karrotpay.assignment.igloomall.domain.coupon.dto.FindCouponHistoriesResponse
 import karrotpay.assignment.igloomall.domain.coupon.spi.QueryCouponPort
 
-@ReadOnlyUseCase
+@UseCase
 class FindCouponHistories(
     private val queryCouponPort: QueryCouponPort
 ) {

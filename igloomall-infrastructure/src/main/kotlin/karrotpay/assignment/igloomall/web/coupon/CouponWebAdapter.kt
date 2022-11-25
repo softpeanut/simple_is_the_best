@@ -5,11 +5,7 @@ import karrotpay.assignment.igloomall.domain.coupon.dto.FindCouponHistoriesRespo
 import karrotpay.assignment.igloomall.domain.coupon.dto.FindUserRetainedCouponsResponse
 import karrotpay.assignment.igloomall.domain.coupon.dto.IssueCouponResponse
 import karrotpay.assignment.igloomall.domain.coupon.dto.UseCouponResponse
-import karrotpay.assignment.igloomall.domain.coupon.usecase.FindAllCoupons
-import karrotpay.assignment.igloomall.domain.coupon.usecase.FindCouponHistories
-import karrotpay.assignment.igloomall.domain.coupon.usecase.FindUserRetainedCoupons
-import karrotpay.assignment.igloomall.domain.coupon.usecase.IssueCoupon
-import karrotpay.assignment.igloomall.domain.coupon.usecase.UseCoupon
+import karrotpay.assignment.igloomall.facade.CouponFacade
 import karrotpay.assignment.igloomall.web.coupon.dto.IssueCouponWebRequest
 import karrotpay.assignment.igloomall.web.coupon.dto.UseCouponWebRequest
 import org.springframework.http.HttpStatus
@@ -26,11 +22,7 @@ import javax.validation.Valid
 @RequestMapping("/coupons")
 @RestController
 class CouponWebAdapter(
-    private val issueCouponUseCase: IssueCoupon,
-    private val useCouponUseCase: UseCoupon,
-    private val findUserRetainedCouponsUseCase: FindUserRetainedCoupons,
-    private val findCouponHistoriesUseCase: FindCouponHistories,
-    private val findAllCouponsUseCase: FindAllCoupons
+    private val couponFacade: CouponFacade
 ) {
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -38,7 +30,7 @@ class CouponWebAdapter(
     fun issueCoupon(
         @Valid @RequestBody webRequest: IssueCouponWebRequest
     ): IssueCouponResponse {
-        return issueCouponUseCase.execute(
+        return couponFacade.issueCoupon(
             webRequest.userId, webRequest.couponCode
         )
     }
@@ -48,7 +40,7 @@ class CouponWebAdapter(
     fun useCoupon(
         @Valid @RequestBody webRequest: UseCouponWebRequest
     ): UseCouponResponse {
-        return useCouponUseCase.execute(
+        return couponFacade.useCoupon(
             webRequest.userId, webRequest.couponId
         )
     }
@@ -58,7 +50,7 @@ class CouponWebAdapter(
     fun findUserRetainedCoupons(
         @PathVariable("userId") userId: Long
     ): FindUserRetainedCouponsResponse {
-        return findUserRetainedCouponsUseCase.execute(userId)
+        return couponFacade.findUserRetainedCoupons(userId)
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -66,12 +58,12 @@ class CouponWebAdapter(
     fun findCouponHistories(
         @PathVariable("couponId") couponId: Long
     ): FindCouponHistoriesResponse {
-        return findCouponHistoriesUseCase.execute(couponId)
+        return couponFacade.findCouponHistories(couponId)
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     fun findAllCoupons(): FindAllCouponsResponse {
-        return findAllCouponsUseCase.execute()
+        return couponFacade.findAllCoupons()
     }
 }

@@ -11,19 +11,16 @@ import karrotpay.assignment.igloomall.domain.coupon.exception.CouponAlreadyIssue
 import karrotpay.assignment.igloomall.domain.coupon.exception.CouponNoLeftException
 import karrotpay.assignment.igloomall.domain.coupon.exception.CouponNotFoundException
 import karrotpay.assignment.igloomall.domain.coupon.spi.CommandCouponPort
-import karrotpay.assignment.igloomall.domain.coupon.spi.CouponQueryUserPort
 import karrotpay.assignment.igloomall.domain.coupon.spi.QueryCouponPort
 import karrotpay.assignment.igloomall.domain.createCoupon
 import karrotpay.assignment.igloomall.domain.createCouponVO
-import karrotpay.assignment.igloomall.domain.user.exception.UserNotFoundException
 import java.time.LocalDateTime
 
 class IssueCouponBehaviorSpec : BehaviorSpec({
     val queryCouponPort = mockk<QueryCouponPort>()
     val commandCouponPort = mockk<CommandCouponPort>()
-    val queryUserPort = mockk<CouponQueryUserPort>()
 
-    val issueCoupon = IssueCoupon(queryCouponPort, commandCouponPort, queryUserPort)
+    val issueCoupon = IssueCoupon(queryCouponPort, commandCouponPort)
 
     Given("사용자 ID와 쿠폰 코드에 해당하는 쿠폰 내역이 존재하지 않는 경우") {
         val userId = 1L
@@ -33,7 +30,6 @@ class IssueCouponBehaviorSpec : BehaviorSpec({
         val coupon = createCoupon(id = couponId, code = couponCode)
         val couponVO = createCouponVO(id = couponId, code = couponCode, userId = userId, issuedAt = issuedAt)
 
-        every { queryUserPort.existsUserById(any()) } returns true
         every { queryCouponPort.getCoupon(any()) } returns coupon
         every { queryCouponPort.isAlreadyGotCoupon(any(), any()) } returns false
         every { commandCouponPort.saveCoupon(any()) } returns createCoupon()
@@ -48,26 +44,10 @@ class IssueCouponBehaviorSpec : BehaviorSpec({
         }
     }
 
-    Given("사용자 ID에 해당하는 사용자가 존재하지 않는 경우") {
-        val userId = 1L
-        val couponCode = "C0001"
-
-        every { queryUserPort.existsUserById(any()) } returns false
-
-        When("해당 사용자를 조회하면") {
-            Then("UserNotFoundException 예외를 던진다") {
-                shouldThrow<UserNotFoundException> {
-                    issueCoupon.execute(userId, couponCode)
-                }
-            }
-        }
-    }
-
     Given("쿠폰 코드에 해당하는 쿠폰이 존재하지 않는 경우") {
         val userId = 1L
         val couponCode = "C0001"
 
-        every { queryUserPort.existsUserById(any()) } returns true
         every { queryCouponPort.getCoupon(any()) } returns null
 
         When("해당 쿠폰을 조회하면") {
@@ -83,7 +63,6 @@ class IssueCouponBehaviorSpec : BehaviorSpec({
         val userId = 1L
         val couponCode = "C0001"
 
-        every { queryUserPort.existsUserById(any()) } returns true
         every { queryCouponPort.getCoupon(any()) } returns createCoupon(code = couponCode)
         every { queryCouponPort.isAlreadyGotCoupon(any(), any()) } returns true
 
@@ -102,7 +81,6 @@ class IssueCouponBehaviorSpec : BehaviorSpec({
         val couponId = 1L
         val coupon = createCoupon(id = couponId, code = couponCode, totalQuantity = 1000, issuedQuantity = 1000)
 
-        every { queryUserPort.existsUserById(any()) } returns true
         every { queryCouponPort.getCoupon(any()) } returns coupon
         every { queryCouponPort.isAlreadyGotCoupon(any(), any()) } returns false
 
