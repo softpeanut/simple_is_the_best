@@ -5,6 +5,7 @@ import karrotpay.assignment.igloomall.persistence.coupon.model.CouponHistoryJpaE
 import org.springframework.data.jpa.repository.Lock
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
+import java.util.Optional
 import javax.persistence.LockModeType
 
 @Repository
@@ -13,6 +14,6 @@ interface CouponHistoryJpaRepository : CrudRepository<CouponHistoryJpaEntity, Co
     fun existsByCouponCodeAndUserId(couponCode: String, userId: Long): Boolean
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    fun findOne(id: CouponHistoryJpaEntityId): CouponHistoryJpaEntity?
+    override fun findById(id: CouponHistoryJpaEntityId): Optional<CouponHistoryJpaEntity>
 
 }

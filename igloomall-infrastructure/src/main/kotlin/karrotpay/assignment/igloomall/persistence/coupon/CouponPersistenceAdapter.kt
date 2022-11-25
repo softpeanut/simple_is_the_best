@@ -29,9 +29,13 @@ class CouponPersistenceAdapter(
         userId: Long
     ) = couponHistoryRepository.existsByCouponCodeAndUserId(couponCode, userId)
 
-    override fun getCouponHistory(userId: Long, couponId: Long) = couponHistoryRepository.findOne(
-        CouponHistoryJpaEntityId(userId = userId, couponId = couponId)
-    )?.let { couponHistoryMapper.toDomain(it) }
+    override fun getCouponHistory(userId: Long, couponId: Long): CouponHistory? {
+        val couponHistory = couponHistoryRepository.findById(
+            CouponHistoryJpaEntityId(userId = userId, couponId = couponId)
+        ).orElse(null)
+
+        return couponHistory?.let { couponHistoryMapper.toDomain(it) }
+    }
 
     override fun getCoupon(couponCode: String) = couponRepository.findByCode(
         couponCode
