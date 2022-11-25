@@ -19,7 +19,7 @@ class FindAllCoupons(
                 couponName = it.name,
                 couponAmount = it.amount,
                 totalQuantity = it.totalQuantity,
-                remainingQuantity = it.remainingQuantity
+                remainingQuantity = it.calculateRemainingQuantity()
             )
         }
 

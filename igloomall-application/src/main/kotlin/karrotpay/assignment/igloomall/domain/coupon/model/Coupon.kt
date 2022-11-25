@@ -17,7 +17,7 @@ data class Coupon(
     val issuedQuantity: Long = 0
 
 ) {
-    val remainingQuantity: Long = totalQuantity - issuedQuantity
+    fun calculateRemainingQuantity(): Long = totalQuantity - issuedQuantity
 
     fun issue(): Coupon {
         if (totalQuantity <= issuedQuantity) {
