@@ -1,0 +1,691 @@
+{
+	"info": {
+		"_postman_id": "eb7d5a61-950c-4e67-b509-e018a08d2dd7",
+		"name": "당근페이 과제",
+		"description": "# IGLOOMALL API\n\n##### 당근페이 과제로 제작한 `igloo mall` API 명세서입니다.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18646466"
+	},
+	"item": [
+		{
+			"name": "쿠폰 발급 API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\" : 1,\n    \"coupon_code\" : \"C0001\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/coupons",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"coupons"
+					]
+				},
+				"description": "#### **사용자가 쿠폰을 발급받기 위해 사용하는 API입니다.**\n\n> **Request Value** : user_id, coupon_code\n\n> **Response Value** : coupon_id, coupon_code, coupon_issued_at"
+			},
+			"response": [
+				{
+					"name": "SUCCESS - 쿠폰 발급",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\" : 1,\n    \"coupon_code\" : \"C0001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 07:50:04 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"coupon_id\": 1,\n    \"coupon_code\": \"C0001\",\n    \"coupon_issued_at\": \"2022-11-21T16:50:03.921094\"\n}"
+				},
+				{
+					"name": "FAILED - 사용자가 존재하지 않음",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\" : 2,\n    \"coupon_code\" : \"C0001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "41"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 07:51:26 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 404,\n    \"message\": \"User not found\"\n}"
+				},
+				{
+					"name": "FAILED - 쿠폰이 존재하지 않음",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\" : 1,\n    \"coupon_code\" : \"C0002\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "43"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 07:51:50 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 404,\n    \"message\": \"Coupon not found\"\n}"
+				},
+				{
+					"name": "FAILED - 이미 발급됨",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\" : 1,\n    \"coupon_code\" : \"C0001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "48"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 07:50:41 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 409,\n    \"message\": \"Coupon already issued\"\n}"
+				},
+				{
+					"name": "FAILED - 잔여 수량이 부족함",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\" : 1,\n    \"coupon_code\" : \"C0001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "41"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 07:54:36 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 404,\n    \"message\": \"Coupon no left\"\n}"
+				}
+			]
+		},
+		{
+			"name": "쿠폰 사용 API",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\" : 1,\n    \"coupon_id\" : 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/coupons",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"coupons"
+					]
+				},
+				"description": "#### **사용자가 쿠폰을 사용하기 위해 사용하는 API입니다.**\n\n> **Request Value** : user_id, coupon_id\n\n> **Response Value** : coupon_id, coupon_code, coupon_issued_at"
+			},
+			"response": [
+				{
+					"name": "SUCCESS - 쿠폰 사용",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\" : 1,\n    \"coupon_id\" : 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 07:56:32 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"coupon_id\": 1,\n    \"coupon_code\": \"C0001\",\n    \"coupon_used_at\": \"2022-11-21T16:56:32.124174\"\n}"
+				},
+				{
+					"name": "FAILED - 쿠폰을 발급받지 않음",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\" : 1,\n    \"coupon_id\" : 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "44"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 07:58:37 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 404,\n    \"message\": \"Coupon not issued\"\n}"
+				},
+				{
+					"name": "FAILED - 이미 사용함",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\" : 1,\n    \"coupon_id\" : 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "46"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 07:57:06 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 409,\n    \"message\": \"Coupon already used\"\n}"
+				}
+			]
+		},
+		{
+			"name": "사용자가 보유한 쿠폰 목록 조회 API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/coupons/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"coupons",
+						"users",
+						"1"
+					]
+				},
+				"description": "#### **사용자가 보유한 쿠폰 목록을 조회하기 위해 사용하는 API입니다.**\n\n> **Request Value** : user_id\n\n> **Response Value** : coupon_id, coupon_code, coupon_issued_at, is_used_coupon, coupon_used_at"
+			},
+			"response": [
+				{
+					"name": "SUCCESS - 사용자가 보유한 쿠폰 목록 조회",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coupons/users/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coupons",
+								"users",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 08:31:59 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"coupons\": [\n        {\n            \"coupon_id\": 2,\n            \"coupon_code\": \"E0001\",\n            \"coupon_issued_at\": \"2022-11-21T17:31:50\",\n            \"is_used_coupon\": false,\n            \"coupon_used_at\": null\n        },\n        {\n            \"coupon_id\": 1,\n            \"coupon_code\": \"C0001\",\n            \"coupon_issued_at\": \"2022-11-21T17:31:43\",\n            \"is_used_coupon\": true,\n            \"coupon_used_at\": \"2022-11-21T17:31:57\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "쿠폰 ID로 쿠폰 정보 조회 API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/coupons/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"coupons",
+						"1"
+					]
+				},
+				"description": "#### **쿠폰 ID로 쿠폰 정보를 조회하기 위해 사용하는 API입니다.**\n\n> **Request Value** : coupon_id\n\n> **Response Value** : user_id, coupon_id, coupon_code, coupon_issued_at, is_used_coupon, coupon_used_at"
+			},
+			"response": [
+				{
+					"name": "SUCCESS - 쿠폰 ID로 쿠폰 정보 조회",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coupons/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coupons",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 08:33:33 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"coupons\": [\n        {\n            \"user_id\": 1,\n            \"coupon_id\": 1,\n            \"coupon_code\": \"C0001\",\n            \"coupon_issued_at\": \"2022-11-21T17:31:43\",\n            \"is_used_coupon\": true,\n            \"coupon_used_at\": \"2022-11-21T17:31:57\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "전체 쿠폰 발급 현황 조회 API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/coupons",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"coupons"
+					]
+				},
+				"description": "#### **\b전체 쿠폰 발급 현황을 조회하기 위해 사용하는 API입니다.**\n\n> **Response Value** : coupon_code, coupon_name, coupon_amount, total_quantity, remaining_quantity"
+			},
+			"response": [
+				{
+					"name": "SUCCESS - 전체 쿠폰 발급 현황 조회",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coupons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Nov 2022 09:46:46 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"coupons\": [\n        {\n            \"coupon_code\": \"C0001\",\n            \"coupon_name\": \"의류 할인 쿠폰\",\n            \"coupon_amount\": 50000,\n            \"total_quantity\": 998,\n            \"remaining_quantity\": 996\n        },\n        {\n            \"coupon_code\": \"E0001\",\n            \"coupon_name\": \"전자제품 할인 쿠폰\",\n            \"coupon_amount\": 100000,\n            \"total_quantity\": 299,\n            \"remaining_quantity\": 298\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}
