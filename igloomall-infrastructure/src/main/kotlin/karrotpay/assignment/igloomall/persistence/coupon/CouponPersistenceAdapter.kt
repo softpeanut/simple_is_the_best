@@ -14,7 +14,6 @@ import karrotpay.assignment.igloomall.persistence.coupon.model.QCouponJpaEntity.
 import karrotpay.assignment.igloomall.persistence.coupon.repository.CouponHistoryJpaRepository
 import karrotpay.assignment.igloomall.persistence.coupon.repository.CouponJpaRepository
 import karrotpay.assignment.igloomall.persistence.coupon.repository.vo.QCouponPersistenceVO
-import org.springframework.data.repository.findByIdOrNull
 
 @PersistenceAdapter
 class CouponPersistenceAdapter(
@@ -29,7 +28,7 @@ class CouponPersistenceAdapter(
         userId: Long
     ) = couponHistoryRepository.existsByCouponCodeAndUserId(couponCode, userId)
 
-    override fun getCouponHistory(userId: Long, couponId: Long) = couponHistoryRepository.findByIdOrNull(
+    override fun getCouponHistory(userId: Long, couponId: Long) = couponHistoryRepository.findOne(
         CouponHistoryJpaEntityId(userId = userId, couponId = couponId)
     )?.let { couponHistoryMapper.toDomain(it) }
 
