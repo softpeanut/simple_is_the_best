@@ -1,9 +1,7 @@
 package karrotpay.assignment.igloomall.global.config
 
 import karrotpay.assignment.igloomall.common.annotation.ReadOnlyUseCase
-import karrotpay.assignment.igloomall.common.annotation.UseCase
-import karrotpay.assignment.igloomall.global.annotation.Mapper
-import karrotpay.assignment.igloomall.global.annotation.PersistenceAdapter
+import karrotpay.assignment.igloomall.common.annotation.WritableUseCase
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.ComponentScan.Filter
 import org.springframework.context.annotation.Configuration
@@ -16,10 +14,8 @@ import org.springframework.context.annotation.FilterType
         Filter(
             type = FilterType.ANNOTATION,
             classes = [
-                UseCase::class,
-                ReadOnlyUseCase::class,
-                Mapper::class,
-                PersistenceAdapter::class
+                WritableUseCase::class,
+                ReadOnlyUseCase::class
             ]
         )
     ]

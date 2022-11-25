@@ -6,7 +6,6 @@ import karrotpay.assignment.igloomall.domain.coupon.model.CouponHistory
 import karrotpay.assignment.igloomall.domain.coupon.spi.CommandCouponPort
 import karrotpay.assignment.igloomall.domain.coupon.spi.QueryCouponPort
 import karrotpay.assignment.igloomall.domain.coupon.spi.vo.CouponVO
-import karrotpay.assignment.igloomall.global.annotation.PersistenceAdapter
 import karrotpay.assignment.igloomall.persistence.coupon.mapper.CouponHistoryMapper
 import karrotpay.assignment.igloomall.persistence.coupon.mapper.CouponMapper
 import karrotpay.assignment.igloomall.persistence.coupon.model.CouponHistoryJpaEntityId
@@ -15,8 +14,9 @@ import karrotpay.assignment.igloomall.persistence.coupon.model.QCouponJpaEntity.
 import karrotpay.assignment.igloomall.persistence.coupon.repository.CouponHistoryJpaRepository
 import karrotpay.assignment.igloomall.persistence.coupon.repository.CouponJpaRepository
 import karrotpay.assignment.igloomall.persistence.coupon.repository.vo.QCouponPersistenceVO
+import org.springframework.stereotype.Component
 
-@PersistenceAdapter
+@Component
 class CouponPersistenceAdapter(
     private val couponMapper: CouponMapper,
     private val couponHistoryMapper: CouponHistoryMapper,

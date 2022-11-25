@@ -10,7 +10,6 @@ import karrotpay.assignment.igloomall.domain.coupon.usecase.FindCouponHistories
 import karrotpay.assignment.igloomall.domain.coupon.usecase.FindUserRetainedCoupons
 import karrotpay.assignment.igloomall.domain.coupon.usecase.IssueCoupon
 import karrotpay.assignment.igloomall.domain.coupon.usecase.UseCoupon
-import karrotpay.assignment.igloomall.global.annotation.WebAdapter
 import karrotpay.assignment.igloomall.web.coupon.dto.IssueCouponWebRequest
 import karrotpay.assignment.igloomall.web.coupon.dto.UseCouponWebRequest
 import org.springframework.http.HttpStatus
@@ -21,10 +20,11 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
 @RequestMapping("/coupons")
-@WebAdapter
+@RestController
 class CouponWebAdapter(
     private val issueCouponUseCase: IssueCoupon,
     private val useCouponUseCase: UseCoupon,

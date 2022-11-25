@@ -20,12 +20,12 @@ class TransactionAspect(
 ) {
 
     @Bean
-    fun transactionAdviceAdvisor(): Advisor {
+    fun writableTransactionAdviceAdvisor(): Advisor {
         val pointcut = AspectJExpressionPointcut().apply {
-            expression = "@within(karrotpay.assignment.igloomall.common.annotation.UseCase)"
+            expression = "@within(karrotpay.assignment.igloomall.common.annotation.WritableUseCase)"
         }
 
-        return DefaultPointcutAdvisor(pointcut, transactionAdvice())
+        return DefaultPointcutAdvisor(pointcut, writableTransactionAdvice())
     }
 
     @Bean
@@ -38,9 +38,9 @@ class TransactionAspect(
     }
 
     @Bean
-    fun transactionAdvice(): TransactionInterceptor {
+    fun writableTransactionAdvice(): TransactionInterceptor {
         val transactionAttribute = RuleBasedTransactionAttribute().apply {
-            setName("Transaction")
+            setName("Writable Transaction")
             propagationBehavior = TransactionAttribute.PROPAGATION_REQUIRED
             isolationLevel = TransactionAttribute.ISOLATION_REPEATABLE_READ // gap lock
             timeout = TransactionAttribute.TIMEOUT_DEFAULT

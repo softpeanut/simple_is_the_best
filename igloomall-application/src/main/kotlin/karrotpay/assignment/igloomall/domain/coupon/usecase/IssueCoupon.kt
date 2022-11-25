@@ -1,6 +1,6 @@
 package karrotpay.assignment.igloomall.domain.coupon.usecase
 
-import karrotpay.assignment.igloomall.common.annotation.UseCase
+import karrotpay.assignment.igloomall.common.annotation.WritableUseCase
 import karrotpay.assignment.igloomall.domain.coupon.dto.IssueCouponResponse
 import karrotpay.assignment.igloomall.domain.coupon.exception.CouponAlreadyIssuedException
 import karrotpay.assignment.igloomall.domain.coupon.exception.CouponNotFoundException
@@ -11,7 +11,7 @@ import karrotpay.assignment.igloomall.domain.coupon.spi.QueryCouponPort
 import karrotpay.assignment.igloomall.domain.user.exception.UserNotFoundException
 import java.time.LocalDateTime
 
-@UseCase
+@WritableUseCase
 class IssueCoupon(
     private val queryCouponPort: QueryCouponPort,
     private val commandCouponPort: CommandCouponPort,

@@ -1,10 +1,10 @@
 package karrotpay.assignment.igloomall.persistence.user
 
 import karrotpay.assignment.igloomall.domain.coupon.spi.CouponQueryUserPort
-import karrotpay.assignment.igloomall.global.annotation.PersistenceAdapter
 import karrotpay.assignment.igloomall.persistence.user.repository.UserJpaRepository
+import org.springframework.stereotype.Component
 
-@PersistenceAdapter
+@Component
 class UserPersistenceAdapter(
     private val userRepository: UserJpaRepository
 ) : CouponQueryUserPort {

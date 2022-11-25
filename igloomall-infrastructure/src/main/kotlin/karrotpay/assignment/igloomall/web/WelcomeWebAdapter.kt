@@ -1,9 +1,9 @@
 package karrotpay.assignment.igloomall.web
 
-import karrotpay.assignment.igloomall.global.annotation.WebAdapter
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
 
-@WebAdapter
+@RestController
 class WelcomeWebAdapter {
 
     @GetMapping

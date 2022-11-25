@@ -1,10 +1,10 @@
 package karrotpay.assignment.igloomall.persistence.coupon.mapper
 
 import karrotpay.assignment.igloomall.domain.coupon.model.Coupon
-import karrotpay.assignment.igloomall.global.annotation.Mapper
 import karrotpay.assignment.igloomall.persistence.coupon.model.CouponJpaEntity
+import org.springframework.stereotype.Component
 
-@Mapper
+@Component
 class CouponMapper {
 
     fun toDomain(entity: CouponJpaEntity?): Coupon? {

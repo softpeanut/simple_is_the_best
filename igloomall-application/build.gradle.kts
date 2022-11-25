@@ -7,6 +7,6 @@ dependencies {
 }
 
 allOpen {
-    annotation("karrotpay.assignment.igloomall.common.annotation.UseCase")
+    annotation("karrotpay.assignment.igloomall.common.annotation.WritableUseCase")
     annotation("karrotpay.assignment.igloomall.common.annotation.ReadOnlyUseCase")
 }

@@ -1,13 +1,13 @@
 package karrotpay.assignment.igloomall.persistence.coupon.mapper
 
 import karrotpay.assignment.igloomall.domain.coupon.model.CouponHistory
-import karrotpay.assignment.igloomall.global.annotation.Mapper
 import karrotpay.assignment.igloomall.persistence.coupon.model.CouponHistoryJpaEntity
 import karrotpay.assignment.igloomall.persistence.coupon.repository.CouponJpaRepository
 import karrotpay.assignment.igloomall.persistence.user.repository.UserJpaRepository
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Component
 
-@Mapper
+@Component
 class CouponHistoryMapper(
     private val couponRepository: CouponJpaRepository,
     private val userRepository: UserJpaRepository

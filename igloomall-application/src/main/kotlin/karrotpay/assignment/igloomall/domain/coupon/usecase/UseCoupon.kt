@@ -1,12 +1,12 @@
 package karrotpay.assignment.igloomall.domain.coupon.usecase
 
-import karrotpay.assignment.igloomall.common.annotation.UseCase
+import karrotpay.assignment.igloomall.common.annotation.WritableUseCase
 import karrotpay.assignment.igloomall.domain.coupon.dto.UseCouponResponse
 import karrotpay.assignment.igloomall.domain.coupon.exception.CouponNotIssuedException
 import karrotpay.assignment.igloomall.domain.coupon.spi.CommandCouponPort
 import karrotpay.assignment.igloomall.domain.coupon.spi.QueryCouponPort
 
-@UseCase
+@WritableUseCase
 class UseCoupon(
     private val queryCouponPort: QueryCouponPort,
     private val commandCouponPort: CommandCouponPort
