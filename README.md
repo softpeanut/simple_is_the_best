@@ -16,7 +16,7 @@
 ### 다운로드
 - Github에 업로드된 프로젝트를 clone 받기 위해 git이 자신의 local에 설치되어 있어야 합니다.
 ```
-$ git clone https://github.com/karrotrecruit/karrotpay-369-69507688003-75325158003.git
+$ git clone https://github.com/softpeanut/dangpa_ass.git
 ```
 
 ### 빌드
