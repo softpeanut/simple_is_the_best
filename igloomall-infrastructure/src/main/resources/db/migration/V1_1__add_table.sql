@@ -1,3 +1,6 @@
+-- drop index
+DROP INDEX code_unique_index on tbl_coupon;
+
 -- create coupon table
 CREATE TABLE IF NOT EXISTS tbl_coupon
 (
