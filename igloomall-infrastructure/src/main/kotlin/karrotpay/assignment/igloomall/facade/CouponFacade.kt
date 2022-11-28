@@ -11,6 +11,10 @@ import karrotpay.assignment.igloomall.domain.coupon.usecase.FindUserRetainedCoup
 import karrotpay.assignment.igloomall.domain.coupon.usecase.IssueCoupon
 import karrotpay.assignment.igloomall.domain.coupon.usecase.UseCoupon
 import karrotpay.assignment.igloomall.domain.user.usecase.CheckUserExists
+import karrotpay.assignment.igloomall.global.config.CacheValue
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.cache.annotation.Caching
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
@@ -34,6 +38,7 @@ class CouponFacade(
         return findAllCoupons.execute()
     }
 
+    @Cacheable(value = [CacheValue.FIND_COUPON_HISTORIES], key = "#couponId")
     @Transactional(
         readOnly = true,
         isolation = Isolation.READ_COMMITTED,
@@ -43,6 +48,7 @@ class CouponFacade(
         return findCouponHistories.execute(couponId)
     }
 
+    @Cacheable(value = [CacheValue.FIND_USER_RETAINED_COUPON], key = "#userId")
     @Transactional(
         readOnly = true,
         isolation = Isolation.READ_COMMITTED,
@@ -54,6 +60,12 @@ class CouponFacade(
         return findUserRetainedCoupons.execute(userId)
     }
 
+    @Caching(
+        evict = [
+            CacheEvict(value = [CacheValue.FIND_COUPON_HISTORIES], key = "#couponId"),
+            CacheEvict(value = [CacheValue.FIND_USER_RETAINED_COUPON], key = "#userId")
+        ]
+    )
     @Transactional(rollbackFor = [Exception::class])
     fun issueCoupon(userId: Long, couponCode: String): IssueCouponResponse {
         checkUserExists.execute(userId)
@@ -61,6 +73,12 @@ class CouponFacade(
         return issueCoupon.execute(userId, couponCode)
     }
 
+    @Caching(
+        evict = [
+            CacheEvict(value = [CacheValue.FIND_COUPON_HISTORIES], key = "#couponId"),
+            CacheEvict(value = [CacheValue.FIND_USER_RETAINED_COUPON], key = "#userId")
+        ]
+    )
     @Transactional(rollbackFor = [Exception::class])
     fun useCoupon(userId: Long, couponId: Long): UseCouponResponse {
         checkUserExists.execute(userId)

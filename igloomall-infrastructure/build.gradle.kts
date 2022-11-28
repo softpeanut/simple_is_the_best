@@ -14,6 +14,7 @@ dependencies {
     implementationDependencies(Libraries.Database)
     implementationDependencies(Libraries.Querydsl)
     implementationDependencies(Libraries.Test)
+    implementationDependencies(Libraries.Cache)
 }
 
 allOpen {

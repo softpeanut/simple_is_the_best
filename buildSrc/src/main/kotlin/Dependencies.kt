@@ -30,11 +30,13 @@ interface Libraries {
         private const val STARTER_WEB = "org.springframework.boot:spring-boot-starter-web"
         private const val STARTER_VALIDATION = "org.springframework.boot:spring-boot-starter-validation"
         private const val STARTER_JPA = "org.springframework.boot:spring-boot-starter-data-jpa"
+        private const val STARTER_CACHE = "org.springframework.boot:spring-boot-starter-cache"
 
         override fun dependencies() = listOf(
             STARTER_WEB to ImplementationType.IMPLEMENTATION,
             STARTER_VALIDATION to ImplementationType.IMPLEMENTATION,
-            STARTER_JPA to ImplementationType.IMPLEMENTATION
+            STARTER_JPA to ImplementationType.IMPLEMENTATION,
+            STARTER_CACHE to ImplementationType.IMPLEMENTATION
         )
     }
 
@@ -65,6 +67,14 @@ interface Libraries {
         override fun dependencies() = listOf(
             QUERYDSL_JPA to ImplementationType.IMPLEMENTATION,
             QUERYDSL_APT to ImplementationType.KAPT
+        )
+    }
+
+    object Cache : Libraries {
+        private const val EHCACHE = "net.sf.ehcache:ehcache:2.10.9.2"
+
+        override fun dependencies() = listOf(
+            EHCACHE to ImplementationType.IMPLEMENTATION
         )
     }
 }
