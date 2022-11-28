@@ -49,6 +49,8 @@ class CouponFacade(
         rollbackFor = [Exception::class]
     )
     fun findUserRetainedCoupons(userId: Long): FindUserRetainedCouponsResponse {
+        checkUserExists.execute(userId)
+
         return findUserRetainedCoupons.execute(userId)
     }
 
@@ -61,6 +63,8 @@ class CouponFacade(
 
     @Transactional(rollbackFor = [Exception::class])
     fun useCoupon(userId: Long, couponId: Long): UseCouponResponse {
+        checkUserExists.execute(userId)
+
         return useCoupon.execute(userId, couponId)
     }
 }
