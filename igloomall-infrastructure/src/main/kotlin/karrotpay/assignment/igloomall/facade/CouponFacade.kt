@@ -62,7 +62,7 @@ class CouponFacade(
 
     @Caching(
         evict = [
-            CacheEvict(value = [CacheValue.FIND_COUPON_HISTORIES], key = "#couponId"),
+            CacheEvict(value = [CacheValue.FIND_COUPON_HISTORIES], allEntries = true),
             CacheEvict(value = [CacheValue.FIND_USER_RETAINED_COUPON], key = "#userId")
         ]
     )
