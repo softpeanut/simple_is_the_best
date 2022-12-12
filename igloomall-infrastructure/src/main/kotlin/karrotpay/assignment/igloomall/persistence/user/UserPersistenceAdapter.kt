@@ -9,5 +9,7 @@ class UserPersistenceAdapter(
     private val userRepository: UserJpaRepository
 ) : QueryUserPort {
 
-    override fun existsUserById(userId: Long) = userRepository.existsById(userId)
+    override fun existsUserById(userId: Long): Boolean {
+        return userRepository.existsById(userId)
+    }
 }

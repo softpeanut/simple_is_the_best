@@ -24,25 +24,27 @@ class CouponPersistenceAdapter(
     private val couponHistoryRepository: CouponHistoryJpaRepository,
     private val queryFactory: JPAQueryFactory
 ) : QueryCouponPort, CommandCouponPort {
-    override fun isAlreadyGotCoupon(
-        couponCode: String,
-        userId: Long
-    ) = couponHistoryRepository.existsByCouponCodeAndUserId(couponCode, userId)
+    override fun isAlreadyGotCoupon(couponCode: String, userId: Long): Boolean {
+        return couponHistoryRepository.existsByCouponCodeAndUserId(couponCode, userId)
+    }
 
     override fun getCouponHistory(userId: Long, couponId: Long): CouponHistory? {
         val couponHistory = couponHistoryRepository.findCouponHistoryJpaEntityById(
             CouponHistoryJpaEntityId(userId = userId, couponId = couponId)
         )
 
-        return couponHistory?.run { couponHistoryMapper.toDomain(this) }
+        return couponHistory?.let(couponHistoryMapper::toDomain)
     }
 
-    override fun getCoupon(couponCode: String) = couponRepository.findByCode(
-        couponCode
-    )?.run { couponMapper.toDomain(this) }
+    override fun getCoupon(couponCode: String): Coupon? {
+        return couponRepository.findByCode(couponCode)
+            ?.let(couponMapper::toDomain)
+    }
 
-    override fun getAllCoupons() = couponRepository.findAll().map {
-        couponMapper.toDomain(it)!!
+    override fun getAllCoupons(): List<Coupon> {
+        return couponRepository.findAll().map {
+            couponMapper.toDomain(it)!!
+        }
     }
 
     override fun getCouponHistoriesByUser(userId: Long): List<CouponVO> {
@@ -92,15 +94,17 @@ class CouponPersistenceAdapter(
             couponHistoryMapper.toEntity(couponHistory)
         )
 
-        return issuedCouponHistory.run {
+        return issuedCouponHistory.let {
             CouponVO(
-                coupon = couponMapper.toDomain(this.coupon)!!,
-                couponHistory = couponHistoryMapper.toDomain(this)!!
+                coupon = couponMapper.toDomain(it.coupon)!!,
+                couponHistory = couponHistoryMapper.toDomain(it)!!
             )
         }
     }
 
-    override fun saveCoupon(coupon: Coupon) = couponRepository.save(
-        couponMapper.toEntity(coupon)
-    ).run { couponMapper.toDomain(this)!! }
+    override fun saveCoupon(coupon: Coupon): Coupon {
+        return couponRepository.save(
+            couponMapper.toEntity(coupon)
+        ).let(couponMapper::toDomain)!!
+    }
 }
