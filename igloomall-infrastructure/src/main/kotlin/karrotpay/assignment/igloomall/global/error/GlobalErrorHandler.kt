@@ -26,7 +26,9 @@ class GlobalErrorHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException::class)
-    fun handleHttpMessageNotReadableException() = ErrorResponse.of(GlobalError.INVALID_JSON)
+    fun handleHttpMessageNotReadableException() = ErrorResponse.of(
+        GlobalExceptions.InvalidJson("Json 요청을 확인해주세요.")
+    )
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentTypeMismatchException::class)

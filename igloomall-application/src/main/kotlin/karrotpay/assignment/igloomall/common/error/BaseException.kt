@@ -1,7 +1,8 @@
 package karrotpay.assignment.igloomall.common.error
 
 abstract class BaseException(
-    val errorProperty: ErrorProperty
+    open val status: Int,
+    override val message: String
 ) : RuntimeException() {
 
     override fun fillInStackTrace() = this

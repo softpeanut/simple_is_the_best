@@ -1,6 +1,6 @@
 package karrotpay.assignment.igloomall.domain.coupon.model
 
-import karrotpay.assignment.igloomall.domain.coupon.exception.CouponNoLeftException
+import karrotpay.assignment.igloomall.domain.coupon.error.CouponExceptions
 
 data class Coupon(
 
@@ -21,7 +21,7 @@ data class Coupon(
 
     fun issue(): Coupon {
         if (totalQuantity <= issuedQuantity) {
-            throw CouponNoLeftException
+            throw CouponExceptions.NoLeft()
         }
 
         return this.copy(

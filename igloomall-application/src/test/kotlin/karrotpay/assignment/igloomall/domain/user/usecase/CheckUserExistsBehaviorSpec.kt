@@ -6,7 +6,7 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.mockk.every
 import io.mockk.mockk
 import karrotpay.assignment.igloomall.common.afterContainer
-import karrotpay.assignment.igloomall.domain.user.exception.UserNotFoundException
+import karrotpay.assignment.igloomall.domain.user.error.UserExceptions
 import karrotpay.assignment.igloomall.domain.user.spi.QueryUserPort
 
 class CheckUserExistsBehaviorSpec : BehaviorSpec({
@@ -21,7 +21,7 @@ class CheckUserExistsBehaviorSpec : BehaviorSpec({
 
         When("해당 사용자를 조회하면") {
             Then("예외를 던지지 않는다") {
-                shouldNotThrow<UserNotFoundException> {
+                shouldNotThrow<UserExceptions.NotFound> {
                     checkUserExists.execute(userId)
                 }
             }
@@ -35,7 +35,7 @@ class CheckUserExistsBehaviorSpec : BehaviorSpec({
 
         When("해당 사용자를 조회하면") {
             Then("UserNotFoundException 예외를 던진다") {
-                shouldThrow<UserNotFoundException> {
+                shouldThrow<UserExceptions.NotFound> {
                     checkUserExists.execute(userId)
                 }
             }

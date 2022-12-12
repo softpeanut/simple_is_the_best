@@ -1,6 +1,6 @@
 package karrotpay.assignment.igloomall.global.error
 
-import karrotpay.assignment.igloomall.common.error.ErrorProperty
+import karrotpay.assignment.igloomall.common.error.BaseException
 import org.springframework.core.MethodParameter
 import org.springframework.validation.BindingResult
 
@@ -9,9 +9,9 @@ data class ErrorResponse(
     val message: Any
 ) {
     companion object {
-        fun of(errorProperty: ErrorProperty) = ErrorResponse(
-            errorProperty.status,
-            errorProperty.message
+        fun of(exception: BaseException) = ErrorResponse(
+            exception.status,
+            exception.message
         )
 
         fun of(e: BindingResult): ErrorResponse {
@@ -22,13 +22,13 @@ data class ErrorResponse(
             }
 
             return ErrorResponse(
-                status = GlobalError.BAD_REQUEST.status,
+                status = 400,
                 message = errorMap
             )
         }
 
         fun of(parameter: MethodParameter) = ErrorResponse(
-            status = GlobalError.BAD_REQUEST.status,
+            status = 400,
             message = "Invalid parameter: ${parameter.parameterName} is '${parameter.parameterType}' type"
         )
     }

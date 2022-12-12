@@ -2,8 +2,6 @@ package karrotpay.assignment.igloomall.global.error
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import karrotpay.assignment.igloomall.common.error.BaseException
-import karrotpay.assignment.igloomall.common.error.ErrorProperty
-import karrotpay.assignment.igloomall.global.exception.InternalServerErrorException
 import org.springframework.http.MediaType
 import org.springframework.web.filter.OncePerRequestFilter
 import java.nio.charset.StandardCharsets
@@ -23,7 +21,7 @@ class ErrorFilter(
         try {
             filterChain.doFilter(request, response)
         } catch (e: BaseException) {
-            errorToJson(e.errorProperty, response)
+            errorToJson(e, response)
         } catch (e: Exception) {
 
             /**
@@ -32,19 +30,19 @@ class ErrorFilter(
              * e.cause의 타입을 검사
              */
             when (e.cause) {
-                is BaseException -> errorToJson((e.cause as BaseException).errorProperty, response)
+                is BaseException -> errorToJson((e.cause as BaseException), response)
                 else -> {
-                    errorToJson(InternalServerErrorException.errorProperty, response)
+                    errorToJson(GlobalExceptions.InternalServerError(), response)
                     e.printStackTrace()
                 }
             }
         }
     }
 
-    private fun errorToJson(errorProperty: ErrorProperty, response: HttpServletResponse) {
-        response.status = errorProperty.status
+    private fun errorToJson(exception: BaseException, response: HttpServletResponse) {
+        response.status = exception.status
         response.characterEncoding = StandardCharsets.UTF_8.name()
         response.contentType = MediaType.APPLICATION_JSON_VALUE
-        response.writer.write(objectMapper.writeValueAsString(ErrorResponse.of(errorProperty)))
+        response.writer.write(objectMapper.writeValueAsString(ErrorResponse.of(exception)))
     }
 }

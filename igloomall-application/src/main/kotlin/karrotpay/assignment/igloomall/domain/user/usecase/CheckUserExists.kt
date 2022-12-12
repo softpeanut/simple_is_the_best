@@ -1,7 +1,7 @@
 package karrotpay.assignment.igloomall.domain.user.usecase
 
 import karrotpay.assignment.igloomall.common.annotation.UseCase
-import karrotpay.assignment.igloomall.domain.user.exception.UserNotFoundException
+import karrotpay.assignment.igloomall.domain.user.error.UserExceptions
 import karrotpay.assignment.igloomall.domain.user.spi.QueryUserPort
 
 @UseCase
@@ -11,7 +11,7 @@ class CheckUserExists(
 
     fun execute(userId: Long) {
         if (!queryUserPort.existsUserById(userId)) {
-            throw UserNotFoundException
+            throw UserExceptions.NotFound()
         }
     }
 }

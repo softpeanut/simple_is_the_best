@@ -7,9 +7,7 @@ import io.mockk.every
 import io.mockk.mockk
 import karrotpay.assignment.igloomall.common.afterContainer
 import karrotpay.assignment.igloomall.domain.coupon.dto.IssueCouponResponse
-import karrotpay.assignment.igloomall.domain.coupon.exception.CouponAlreadyIssuedException
-import karrotpay.assignment.igloomall.domain.coupon.exception.CouponNoLeftException
-import karrotpay.assignment.igloomall.domain.coupon.exception.CouponNotFoundException
+import karrotpay.assignment.igloomall.domain.coupon.error.CouponExceptions
 import karrotpay.assignment.igloomall.domain.coupon.spi.CommandCouponPort
 import karrotpay.assignment.igloomall.domain.coupon.spi.QueryCouponPort
 import karrotpay.assignment.igloomall.domain.createCoupon
@@ -52,7 +50,7 @@ class IssueCouponBehaviorSpec : BehaviorSpec({
 
         When("해당 쿠폰을 조회하면") {
             Then("CouponNotFoundException 예외를 던진다") {
-                shouldThrow<CouponNotFoundException> {
+                shouldThrow<CouponExceptions.NotFound> {
                     issueCoupon.execute(userId, couponCode)
                 }
             }
@@ -68,7 +66,7 @@ class IssueCouponBehaviorSpec : BehaviorSpec({
 
         When("해당 쿠폰 내역을 조회하면") {
             Then("CouponAlreadyIssuedException 예외를 던진다") {
-                shouldThrow<CouponAlreadyIssuedException> {
+                shouldThrow<CouponExceptions.AlreadyIssued> {
                     issueCoupon.execute(userId, couponCode)
                 }
             }
@@ -86,7 +84,7 @@ class IssueCouponBehaviorSpec : BehaviorSpec({
 
         When("해당 쿠폰 내역을 조회하면") {
             Then("CouponNoLeftException 예외를 던진다") {
-                shouldThrow<CouponNoLeftException> {
+                shouldThrow<CouponExceptions.NoLeft> {
                     issueCoupon.execute(userId, couponCode)
                 }
             }

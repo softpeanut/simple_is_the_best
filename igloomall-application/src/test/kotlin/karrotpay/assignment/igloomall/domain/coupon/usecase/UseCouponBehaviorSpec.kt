@@ -7,8 +7,7 @@ import io.mockk.every
 import io.mockk.mockk
 import karrotpay.assignment.igloomall.common.afterContainer
 import karrotpay.assignment.igloomall.domain.coupon.dto.UseCouponResponse
-import karrotpay.assignment.igloomall.domain.coupon.exception.CouponAlreadyUsedException
-import karrotpay.assignment.igloomall.domain.coupon.exception.CouponNotIssuedException
+import karrotpay.assignment.igloomall.domain.coupon.error.CouponExceptions
 import karrotpay.assignment.igloomall.domain.coupon.spi.CommandCouponPort
 import karrotpay.assignment.igloomall.domain.coupon.spi.QueryCouponPort
 import karrotpay.assignment.igloomall.domain.createCouponHistory
@@ -50,7 +49,7 @@ class UseCouponBehaviorSpec : BehaviorSpec({
 
         When("특정 사용자가 쿠폰 ID에 해당하는 쿠폰을 사용하면") {
             Then("CouponAlreadyUsedException 예외를 던진다") {
-                shouldThrow<CouponAlreadyUsedException> {
+                shouldThrow<CouponExceptions.AlreadyUsed> {
                     useCoupon.execute(userId, couponId)
                 }
             }
@@ -65,7 +64,7 @@ class UseCouponBehaviorSpec : BehaviorSpec({
 
         When("해당 사용자 ID와 쿠폰 ID로 쿠폰 내역을 조회하면") {
             Then("CouponNotIssuedException 예외를 던진다") {
-                shouldThrow<CouponNotIssuedException> {
+                shouldThrow<CouponExceptions.NotIssued> {
                     useCoupon.execute(userId, couponId)
                 }
             }
